@@ -1,10 +1,9 @@
 export interface User {
     id: string,
-    nombreUsuario: string,
-    nombreEmpresa: String,
-    ApellidMaterno: string,
+    Nombre: string,
+    Apellido: string,
     correoElectronico: string,
     contraseña: string,
     FechaNacimiento: Date,
-    tipo: 'Empresa' | 'Cliente'
+    TipoUsuario: 'Empresa' | 'Cliente'
 }
