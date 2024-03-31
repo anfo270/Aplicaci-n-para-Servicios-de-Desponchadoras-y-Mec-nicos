@@ -35,16 +35,22 @@ export class RegistroLoginPage implements OnInit {
   ngOnInit() {
   }
 
+  Registrar() {
+    var f = this.FormularioRegistro.value;
+    if (f.Password !== f.ConfirmacionPassword) {
+      this.alertController.mostrarAlerta('Contraseñas Incorrectas', "Las contraseñas no coinciden");
+      return;
+    }
+    if (f.TipoUsuario = "Empresa") {
+    }
+
+  }
+
+
   Cancelar() {
     this.FormularioRegistro.patchValue({ TipoUsuario: null });
     this.router.navigate(['/login'])
   }
-
-
-
-
-
-
 
   public Columnas = [
     {
