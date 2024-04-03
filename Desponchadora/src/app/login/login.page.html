@@ -6,24 +6,27 @@
 
 <ion-content [fullscreen]="true">
 
-  <form>
+  <form [formGroup]="FormularioInicio">
     <ion-item>
       <ion-label position="floating">Correo Electronico</ion-label>
-      <ion-input></ion-input>
+      <ion-input type="email" name="email" formControlName="CorreoElectronico"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Contraseña</ion-label>
-      <ion-input></ion-input>
+      <ion-input type="{{ mostrarPassword1 ? 'text' : 'password' }}" formControlName="Password" name="password"
+        required></ion-input>
+      <ion-icon name="{{ mostrarPassword1 ? 'eye-off' : 'eye' }}" slot="end"
+        (click)="toggleMostrarPassword1()"></ion-icon>
     </ion-item>
+    <ion-button (click)="login()" expand="block">Ingresar</ion-button>
   </form>
-  <ion-button>Ingresar</ion-button>
 
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="primary">
     <ion-buttons slot="end">
-      <ion-button [routerLink]="['/registro-login']">Registarse</ion-button>
+      <ion-button [routerLink]="['/registro-login']">Registrarse</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
