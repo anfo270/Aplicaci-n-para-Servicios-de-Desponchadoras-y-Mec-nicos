@@ -29,6 +29,16 @@ export class FirebaseService {
   // this.firebaService.getcolleccion(path,data)
   //recomendacion usar la estrucutra de registro-login.page.ts de las lineas 85-91 para agregar los  datos
   // para la obtencion de los datos sar la estructura de login.page.ts de la lineas 92 en adelante
+  // Asi se implenta para eliminar
+  // this.firebaseService.deleteUser(path, userId)
+  // .then(() => {
+  //   console.log('Usuario eliminado correctamente');
+  //   // Realizar cualquier acción adicional después de eliminar el usuario
+  // })
+  // .catch(error => {
+  //   console.error('Error al eliminar usuario:', error);
+  //   // Manejar el error adecuadamente
+  // });
 
 
 
