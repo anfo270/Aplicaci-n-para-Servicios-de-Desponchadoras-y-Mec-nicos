@@ -11,7 +11,8 @@ import {
   query,
   collectionChanges,
   where,
-  updateDoc
+  updateDoc,
+  deleteDoc
 } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root',
@@ -64,5 +65,9 @@ export class FirebaseService {
     const ref = collection(db, path);
     const queryRef = query(ref, where(atributoSearch, '==', key));
     return collectionData(queryRef);
+  }
+
+  deleteUser(path: string, userId: string) {
+    return deleteDoc(doc(getFirestore(), path, userId));
   }
 }
