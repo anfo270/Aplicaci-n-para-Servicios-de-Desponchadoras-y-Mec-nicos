@@ -11,7 +11,8 @@ import {
   query,
   collectionChanges,
   where,
-  updateDoc
+  updateDoc,
+  deleteDoc
 } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,16 @@ export class FirebaseService {
   // this.firebaService.getcolleccion(path,data)
   //recomendacion usar la estrucutra de registro-login.page.ts de las lineas 85-91 para agregar los  datos
   // para la obtencion de los datos sar la estructura de login.page.ts de la lineas 92 en adelante
+  // Asi se implenta para eliminar
+  // this.firebaseService.deleteUser(path, userId)
+  // .then(() => {
+  //   console.log('Usuario eliminado correctamente');
+  //   // Realizar cualquier acción adicional después de eliminar el usuario
+  // })
+  // .catch(error => {
+  //   console.error('Error al eliminar usuario:', error);
+  //   // Manejar el error adecuadamente
+  // });
 
 
 
@@ -64,5 +75,9 @@ export class FirebaseService {
     const ref = collection(db, path);
     const queryRef = query(ref, where(atributoSearch, '==', key));
     return collectionData(queryRef);
+  }
+
+  deleteUser(path: string, userId: string) {
+    return deleteDoc(doc(getFirestore(), path, userId));
   }
 }
