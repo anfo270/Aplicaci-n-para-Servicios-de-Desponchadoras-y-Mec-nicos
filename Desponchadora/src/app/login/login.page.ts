@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FirebaseService } from "../services/firebase.service";
 import { AlertControllerService } from '../services/alert-controller.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { encrypt } from '../util/util-encrypt'
+import { dencrypt, encrypt } from '../util/util-encrypt'
 
 @Component({
   selector: 'app-login',
@@ -33,23 +33,26 @@ export class LoginPage implements OnInit {
 
   login() {
     var f = this.FormularioInicio.value;
-    f.Password = encrypt(f.Password, 'asd159');
     if (this.FormularioInicio.invalid) {
       this.alertController.mostrarAlerta('Campos Inválidos', 'Por favor complete todos los campos correctamente.');
       return;
     }
 
     try {
-      this.firebaseService.getcolleccionByEmailandPassword(this.path, f.CorreoElectronico.toUpperCase(), f.Password).subscribe(users => {
+      this.firebaseService.getcolleccionByEmail(this.path, f.CorreoElectronico.toUpperCase()).subscribe(users => {
         if (users && users.length > 0) {
-          console.log(users);
-          this.alertController.mostrarAlerta('Bienvenido', 'Ingresaste')
+          const user = users[0];
+          const decryptedPassword = dencrypt(user['contraseña']);
+          if (decryptedPassword === f.Password) {
+            this.alertController.mostrarAlerta('Bienvenido', 'Ingresaste');
+          } else {
+            this.alertController.mostrarAlerta('Error', 'Credenciales inválidas. Por favor, inténtelo de nuevo.');
+          }
         } else {
           this.alertController.mostrarAlerta('Error', 'Credenciales inválidas. Por favor, inténtelo de nuevo.');
         }
       });
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
       this.alertController.mostrarAlerta('Error', 'Hubo un problema al intentar iniciar sesión. Por favor, inténtelo de nuevo más tarde.');
     }
   }

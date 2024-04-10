@@ -71,10 +71,8 @@ export class RegistroLoginPage implements OnInit {
       this.alertController.mostrarAlerta('Contraseñas Incorrectas', "Las contraseñas no coinciden");
       return;
     }
-    f.Password = encrypt(f.Password, 'asd159');
-
+    f.Password = encrypt(f.Password);
     this.database.getcolleccionByEmail(this.path, f.CorreoElectronico.toUpperCase()).pipe(take(1)).subscribe(users => {
-      console.log(users);
       if (users && users.length > 0) {
         this.alertController.mostrarAlerta('Error en el registro', 'El correo electrónico ya está en uso');
         return;
