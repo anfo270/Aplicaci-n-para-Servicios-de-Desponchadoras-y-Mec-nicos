@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>Login</ion-title>
+  <ion-toolbar color="tertiary">
+    <ion-title>INICIAR SESIÓN</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/registro-login']">REGISTRARSE</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -20,9 +23,9 @@
     </ion-item>
     <ion-button (click)="login()" expand="block">Ingresar</ion-button>
   </form>
-
 </ion-content>
 
+<!--
 <ion-footer>
   <ion-toolbar color="primary">
     <ion-buttons slot="end">
@@ -30,3 +33,4 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
+-->

@@ -1,0 +1,12 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+ion-button {
+    flex: 1;
+    font-size: smaller;
+    max-width: 127px;
+}
