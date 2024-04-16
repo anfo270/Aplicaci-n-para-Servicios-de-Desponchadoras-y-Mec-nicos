@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import { Tabs1Page } from './tabs1.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
-    component: TabsPage,
+    path: 'tabs1',
+    component: Tabs1Page,
     children: [
       {
         path: 'perfil',
@@ -16,27 +16,27 @@ const routes: Routes = [
         loadChildren: () => import('../acercade/acercade.module').then( m => m.AcercadePageModule)
       },
       {
-        path: 'home',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+        path: 'home1',
+        loadChildren: () => import('../home1/home1.module').then(m => m.Home1PageModule)
       },
       {
-        path: 'productos',
-        loadChildren: () => import('../productos/productos.module').then(m => m.ProductosPageModule)
+        path: 'productos1',
+        loadChildren: () => import('../productos1/productos1.module').then(m => m.Productos1PageModule)
       },
       {
-        path: 'negocio',
-        loadChildren: () => import('../negocio/negocio.module').then(m => m.NegocioPageModule)
+        path: 'carrito',
+        loadChildren: () => import('../carrito/carrito.module').then(m => m.CarritoPageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/home1',
+        redirectTo: '/tabs1/home1',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/home1',
+    redirectTo: '/tabs1/home1',
     pathMatch: 'full'
   }
 ];
@@ -44,4 +44,4 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 })
-export class TabsPageRoutingModule {}
+export class Tabs1PageRoutingModule {}

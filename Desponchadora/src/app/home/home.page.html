@@ -1,13 +1,9 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>
-      Mapa
-    </ion-title>
+<ion-header [translucent]="true">
+  <ion-toolbar color="tertiary">
+    <ion-title slot="start">MAPA</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="enableAddingMarker()">Agregar Ubicación</ion-button>
-      <ion-toolbar color="primary">
-        <ion-button expand="full" (click)="saveMarker()" [disabled]="!addingMarker">Guardar Ubicación </ion-button>
-      </ion-toolbar>
+      <ion-button (click)="enableAddingMarker()">AGREGAR</ion-button>
+      <ion-button expand="full" (click)="saveMarker()" [disabled]="!addingMarker">GUARDAR</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -15,9 +11,3 @@
 <ion-content>
   <div id="map"></div>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar color="primary">
-    <ion-button expand="full" (click)="saveMarker()" [disabled]="!addingMarker">AutoHelp 2024</ion-button>
-  </ion-toolbar>
-</ion-footer>

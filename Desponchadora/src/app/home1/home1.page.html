@@ -1,15 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="tertiary">
-    <ion-title>MAPA</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="enableAddingMarker()">AGREGAR</ion-button>
-      <ion-button expand="full" (click)="saveMarker()" [disabled]="!addingMarker">GUARDAR</ion-button>
-    </ion-buttons>
+    <ion-title slot="start">MAPA</ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-  <!-- <img src="assets/sintitulo.png" alt="Imagen Sintitulo" class="full-image" /> -->
+  <!--
+  <img src="assets/sintitulo.png" alt="Imagen Sintitulo" class="full-image" />
+  -->
 
   <div id="map" class="map-container"></div>
 
@@ -21,11 +20,3 @@
     </ion-item>
   </ion-list>
 </ion-content>
-
-<!--
-<ion-footer>
-  <ion-toolbar color="primary">
-    <ion-button expand="full" (click)="saveMarker()" [disabled]="!addingMarker">AutoHelp 2024</ion-button>
-  </ion-toolbar>
-</ion-footer>
--->

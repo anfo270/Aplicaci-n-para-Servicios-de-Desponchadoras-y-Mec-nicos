@@ -6,10 +6,6 @@ const routes: Routes = [
   { path: '', redirectTo: 'splash', pathMatch: 'full' },
   { path: 'splash', component: SplashScreenComponent },
   {
-    path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
@@ -18,9 +14,13 @@ const routes: Routes = [
     loadChildren: () => import('./registro-login/registro-login.module').then(m => m.RegistroLoginPageModule)
   },
   {
-    path: 'carrito',
-    loadChildren: () => import('./carrito/carrito.module').then( m => m.CarritoPageModule)
-  }
+    path: '',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./tabs1/tabs1.module').then( m => m.Tabs1PageModule)
+  },
 ];
 
 @NgModule({

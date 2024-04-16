@@ -4,7 +4,6 @@
       TIENDA
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="addProduct()">AGREGAR</ion-button>
       <ion-button (click)="loadProducts()">RECARGAR</ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -21,13 +20,11 @@
         <ion-item-option color="success" (click)="agregarAlCarrito(product)">
           <ion-icon slot="icon-only" name="add"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="warning" (click)="updateProduct(product)">
-          <ion-icon slot="icon-only" name="options"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="deleteProduct(product)">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+
+
+
+

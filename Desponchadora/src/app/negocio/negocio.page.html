@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="tertiary">
-    <ion-title>NEGOCIO</ion-title>
+    <ion-title slot="start">NEGOCIO</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Ingrese datos del negocio</ion-card-title>
+      <ion-card-title>DETALLES DEL NEGOCIO</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <form [formGroup]="formularionegocio">
@@ -16,7 +16,7 @@
           <ion-input formControlName="nombre"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Tipo de negocio</ion-label>
+          <ion-label position="floating">Tipo de Negocio</ion-label>
           <ion-textarea formControlName="tipo"></ion-textarea>
         </ion-item>
         <ion-item>
@@ -24,24 +24,19 @@
           <ion-textarea formControlName="propietario"></ion-textarea>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Dirección del negocio</ion-label>
+          <ion-label position="floating">Dirección del Negocio</ion-label>
           <ion-textarea formControlName="direccion"></ion-textarea>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Información de contacto</ion-label>
+          <ion-label position="floating">Información de Contacto</ion-label>
           <ion-textarea formControlName="contacto"></ion-textarea>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Foto del negocio</ion-label>
+          <ion-label position="floating">URL de la Imagen Portada</ion-label>
           <ion-input formControlName="imagen" type="text"></ion-input>
         </ion-item>
-
-        
       </form>
     </ion-card-content>
-    <ion-button (click)="guardarNegocio()">
-      Guardar Negocio
-    </ion-button>
+    <ion-button (click)="guardarNegocio()">GUARDAR NEGOCIO</ion-button>
   </ion-card>
-  <ion-button routerLink="/productos" size="large"><ion-icon name="receipt"></ion-icon>Agregar productos</ion-button>
 </ion-content>
