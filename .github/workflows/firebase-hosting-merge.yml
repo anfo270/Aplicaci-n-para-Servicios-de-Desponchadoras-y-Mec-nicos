@@ -18,3 +18,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_AUTOHELP_7E602 }}'
           channelId: live
           projectId: autohelp-7e602
+          entryPoint: 'Desponchadora/firebase.json'
