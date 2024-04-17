@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../carrito/carrito.service';
 import { AlertController } from '@ionic/angular';
-import { ProductService } from '../productos/productos.service';
+import { CartService } from '../carrito/carrito.service';
+import { FirebaseService } from '../services/firebase.service'; // Asegúrate de importar correctamente el servicio Firebase
+import { LocalStorageService } from '../services/localstorage.service';
 
 @Component({
   selector: 'app-productos1',
@@ -9,39 +10,30 @@ import { ProductService } from '../productos/productos.service';
   styleUrls: ['./productos1.page.scss'],
 })
 export class Productos1Page implements OnInit {
-  public products: {
-    Id: number;
-    Name: string;
-    Details: string;
-    Price: number;
-    Stock: number;
-    Image: string;
-  }[];
+  public products: any[];
+
 
   constructor(
     private alertController: AlertController,
-    private productService: ProductService,
-    private cartService: CartService
+    private firebaseService: FirebaseService,
+    private cartService: CartService,
+    private LocalStorageService: LocalStorageService
   ) {
     this.products = [];
   }
 
   ngOnInit() {
-    this.loadProducts();
+    this.loadProducts()
+    this.LocalStorageService.hasItem();
   }
 
   loadProducts() {
-    this.products = this.productService.getProducts();
+    this.firebaseService.getcolleccion('products').subscribe((data) => {
+      this.products = data;
+    });
   }
 
-  async showProductDetails(product: {
-    Id: number;
-    Name: string;
-    Details: string;
-    Price: number;
-    Stock: number;
-    Image: string;
-  }) {
+  async showProductDetails(product: any) {
     const alert = await this.alertController.create({
       header: `${product.Name}`,
       subHeader: `Precio: $${product.Price.toFixed(2)}`,
@@ -62,3 +54,4 @@ export class Productos1Page implements OnInit {
     await alert.present();
   }
 }
+

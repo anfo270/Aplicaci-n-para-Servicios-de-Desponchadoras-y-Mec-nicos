@@ -1,67 +1,67 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage'; 
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import { finalize } from 'rxjs/operators';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
-export class ProductService {
-    private productsKey = 'products';
+export class FirebaseService {
+  constructor(
+    public firestore: AngularFirestore,
+    private storage: AngularFireStorage
+  ) { }
 
-    getProducts(): {
-        Id: number;
-        Name: string;
-        Details: string;
-        Price: number;
-        Stock: number;
-        Image: string;
-    }[] {
-        const productsStr = localStorage.getItem(this.productsKey);
-        return productsStr ? JSON.parse(productsStr) : [];
-    }
+  uploadImage(path: string, file: File): Promise<string> {
+    const filePath = `images/${new Date().getTime()}_${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
 
-    private saveProducts(products: {
-        Id: number;
-        Name: string;
-        Details: string;
-        Price: number;
-        Stock: number;
-        Image: string;
-    }[]): void {
-        localStorage.setItem(this.productsKey, JSON.stringify(products));
-    }
+    return new Promise((resolve, reject) => {
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            resolve(url);
+          }, reject);
+        })
+      ).subscribe();
+    });
+  }
+  setCollectionWithId(path: string, id: string, data: any) {
+    return this.firestore.collection(path).doc(id).set(data);
+  }
 
-    addProduct(newProduct: {
-        Id: number;
-        Name: string;
-        Details: string;
-        Price: number;
-        Stock: number;
-        Image: string;
-    }): void {
-        const products = this.getProducts();
-        products.push(newProduct);
-        this.saveProducts(products);
-    }
+  setCollection(path: string, data: any) {
+    return this.firestore.collection(path).add(data);
+  }
 
-    updateProduct(updatedProduct: {
-        Id: number;
-        Name: string;
-        Details: string;
-        Price: number;
-        Stock: number;
-        Image: string;
-    }): void {
-        const products = this.getProducts();
-        const index = products.findIndex((p) => p.Id === updatedProduct.Id);
-    if (index !== -1) {
-        products[index] = updatedProduct;
-        this.saveProducts(products);
-    }
-    }
+  setcollecion(path: string, data: any) {
+    return addDoc(collection(getFirestore(), path), data);
+  }
 
-    deleteProduct(productId: number): void {
-        const products = this.getProducts();
-        const updatedProducts = products.filter((p) => p.Id !== productId);
-        this.saveProducts(updatedProducts);
-    }
-    
+
+  getCollection(path: string, collectionQuery?: any) {
+    return this.firestore.collection(path, collectionQuery).valueChanges();
+  }
+
+  getCollectionByEmail(path: string, email: string) {
+    return this.firestore.collection(path, ref => ref.where('correoElectronico', '==', email)).valueChanges();
+  }
+
+  update(path: string, data: any) {
+    return this.firestore.doc(path).update(data);
+  }
+
+  getCollectionByEmailAndPassword(path: string, email: string, password: string) {
+    return this.firestore.collection(path, ref => ref.where('correoElectronico', '==', email).where('contraseña', '==', password)).valueChanges();
+  }
+
+  getCollectionOneObject(path: string, key: string, atributoSearch: string) {
+    return this.firestore.collection(path, ref => ref.where(atributoSearch, '==', key)).valueChanges();
+  }
+
+  deleteDocument(path: string, documentId: string) {
+    return this.firestore.doc(`${path}/${documentId}`).delete();
+  }
 }

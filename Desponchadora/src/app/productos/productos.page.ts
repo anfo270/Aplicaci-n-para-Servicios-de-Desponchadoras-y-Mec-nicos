@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../carrito/carrito.service';
 import { AlertController } from '@ionic/angular';
-import { ProductService } from './productos.service';
+import { FirebaseService } from "../productos/productos.service";
+import { LocalStorageService } from '../services/localstorage.service';
 
 @Component({
   selector: 'app-productos',
@@ -9,39 +9,29 @@ import { ProductService } from './productos.service';
   styleUrls: ['./productos.page.scss'],
 })
 export class ProductosPage implements OnInit {
-  public products: {
-    Id: number;
-    Name: string;
-    Details: string;
-    Price: number;
-    Stock: number;
-    Image: string;
-  }[];
+  public products: any[];
+  localStorageService: any;
 
   constructor(
     private alertController: AlertController,
-    private productService: ProductService,
-    private cartService: CartService
+    private firebaseService: FirebaseService,
+    private LocalStorageService: LocalStorageService
   ) {
     this.products = [];
   }
 
   ngOnInit() {
-    this.loadProducts();
+    this.loadProducts(),
+    this.LocalStorageService.hasItem() ;
   }
 
   loadProducts() {
-    this.products = this.productService.getProducts();
+    this.firebaseService.getCollection('products').subscribe((data: any[]) => {
+      this.products = data;
+    });
   }
 
-  async showProductDetails(product: {
-    Id: number;
-    Name: string;
-    Details: string;
-    Price: number;
-    Stock: number;
-    Image: string;
-  }) {
+  async showProductDetails(product: any) {
     const alert = await this.alertController.create({
       header: `${product.Name}`,
       subHeader: `Precio: $${product.Price.toFixed(2)}`,
@@ -54,8 +44,8 @@ export class ProductosPage implements OnInit {
 
   async addProduct() {
     const alert = await this.alertController.create({
-      header: 'AGREGAR PRODUCTO/SERVICIO',
-      message: 'AGREGA LOS DETALLES',
+      header: 'AGREGAR PRODUCTO',
+      message: 'Ingrese los detalles del nuevo producto',
       inputs: [
         {
           name: 'name',
@@ -73,11 +63,6 @@ export class ProductosPage implements OnInit {
           placeholder: 'Precio'
         },
         {
-          name: 'stock',
-          type: 'number',
-          placeholder: 'Cantidad en Almacén'
-        },
-        {
           name: 'image',
           type: 'text',
           placeholder: 'URL de la Imagen'
@@ -89,18 +74,24 @@ export class ProductosPage implements OnInit {
           role: 'cancel'
         },
         {
-          text: 'GUARDAR',
-          handler: (data) => {
+          text: 'AGREGAR',
+          handler: async (data) => {
+            // Generar un ID único
+            const newId = this.firebaseService.firestore.createId();
             const newProduct = {
-              Id: this.products.length + 1,
+              Id: newId,
               Name: data.name,
               Details: data.details,
               Price: +data.price,
-              Stock: +data.stock,
               Image: data.image
             };
-            this.productService.addProduct(newProduct);
-            this.loadProducts();
+            this.firebaseService.setCollectionWithId('products', newId, newProduct)
+              .then(() => {
+                this.loadProducts();
+              })
+              .catch((error) => {
+                console.error('Error al agregar producto:', error);
+              });
           }
         }
       ]
@@ -109,14 +100,8 @@ export class ProductosPage implements OnInit {
     await alert.present();
   }
 
-  async updateProduct(product: {
-    Id: number;
-    Name: string;
-    Details: string;
-    Price: number;
-    Stock: number;
-    Image: string;
-  }) {
+
+  async updateProduct(product: any) {
     const alert = await this.alertController.create({
       header: 'ACTUALIZAR PRODUCTO/SERVICIO',
       message: 'NUEVOS DETALLES DEL PRODUCTO',
@@ -140,12 +125,6 @@ export class ProductosPage implements OnInit {
           value: product.Price.toString()
         },
         {
-          name: 'stock',
-          type: 'number',
-          placeholder: 'Cantidad en Almacén',
-          value: product.Stock.toString()
-        },
-        {
           name: 'image',
           type: 'text',
           placeholder: 'URL de la Imagen',
@@ -165,11 +144,15 @@ export class ProductosPage implements OnInit {
               Name: data.name,
               Details: data.details,
               Price: +data.price,
-              Stock: +data.stock,
               Image: data.image
             };
-            this.productService.updateProduct(updatedProduct);
-            this.loadProducts();
+            this.firebaseService.update(`products/${product.Id}`, updatedProduct)
+              .then(() => {
+                this.loadProducts();
+              })
+              .catch((error) => {
+                console.error('Error al actualizar producto:', error);
+              });
           }
         }
       ]
@@ -178,14 +161,7 @@ export class ProductosPage implements OnInit {
     await alert.present();
   }
 
-  async deleteProduct(product: {
-    Id: number;
-    Name: string;
-    Details: string;
-    Price: number;
-    Stock: number;
-    Image: string;
-  }) {
+  async deleteProduct(product: any) {
     const alert = await this.alertController.create({
       header: 'ELIMINAR PRODUCTO/SERVICIO',
       message: `¿Quieres borrar ${product.Name}?`,
@@ -197,24 +173,18 @@ export class ProductosPage implements OnInit {
         {
           text: 'ELIMINAR',
           handler: () => {
-            this.productService.deleteProduct(product.Id);
-            this.cartService.removeFromCart(product.Id);
-            this.loadProducts();
+            this.firebaseService.deleteDocument('products', product.Id)
+              .then(() => {
+                this.loadProducts();
+              })
+              .catch((error) => {
+                console.error('Error al eliminar producto:', error);
+              });
           }
         }
       ]
     });
 
-    await alert.present();
-  }
-
-  async agregarAlCarrito(product: any) {
-    this.cartService.addToCart(product);
-    const alert = await this.alertController.create({
-      header: 'Producto Agregado',
-      message: `Se agregó ${product.Name} al carrito.`,
-      buttons: ['OK']
-    });
     await alert.present();
   }
 }
