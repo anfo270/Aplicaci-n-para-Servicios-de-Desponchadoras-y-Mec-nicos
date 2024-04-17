@@ -5,14 +5,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-text-center">
-    <ion-card color="medium" class="content">
-      <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" class="perfil-foto">
-      <ion-card-header>
-        <ion-card-title>Nombre de Usuario</ion-card-title>
-        <ion-card-subtitle>NEGOCIO</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-button expand="block" color="danger">Cerrar Sesión</ion-button>
-      </ion-card-content>
-    </ion-card>
+  <ion-card color="medium" class="content">
+    <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" class="perfil-foto">
+    <ion-card-header>
+      <ion-card-title>Nombre de Usuario</ion-card-title>
+      <ion-card-subtitle>NEGOCIO</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" color="danger" (click)="cerrar()">Cerrar Sesión</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

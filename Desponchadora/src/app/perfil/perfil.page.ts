@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { LocalStorageService } from '../services/localstorage.service';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private LocalStorageService: LocalStorageService,
+  ) { }
 
   ngOnInit() {
   }
-
+  cerrar() {
+    this.LocalStorageService.clear();
+  }
 }

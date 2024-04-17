@@ -24,12 +24,13 @@ export class LocalStorageService {
   // Método para eliminar un elemento del almacenamiento local
   removeItem(key: string): void {
     localStorage.removeItem(key);
+    this.router.navigate(['/']);
   }
 
   // Método para eliminar todos los elementos del almacenamiento local
   clear(): void {
     localStorage.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   hasItem(): void {
