@@ -94,7 +94,7 @@ export class RegistroLoginPage implements OnInit {
         this.database.setcollecion(this.path, user).then(() => {
           this.alertController.mostrarAlerta('Registro Exitoso', "Se ha registrado correctamente")
           this.FormularioRegistro.reset();
-          this.router.navigate(['/'])
+          this.router.navigate(['/login '])
         }).catch((error) => {
           this.alertController.mostrarAlerta('Error en el registro', error.message);
         })
