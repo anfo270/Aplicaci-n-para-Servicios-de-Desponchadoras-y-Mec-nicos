@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from '../services/localstorage.service';
 
 declare var google;
 
@@ -51,12 +52,16 @@ export class HomePage implements OnInit {
     },
   ];
 
-  constructor() {}
+
+  constructor( private LocalStorageService: LocalStorageService) { }
 
   ngOnInit() {
     this.loadMap();
-    this.requestLocationPermission();
+    this.requestLocationPermission(),
+    this.LocalStorageService.hasItem() 
+   ;
   }
+ 
 
   requestLocationPermission() {
     // Aquí puedes implementar la lógica para solicitar permiso de ubicación al usuario

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 import {
   getFirestore,
   setDoc,
@@ -80,4 +82,14 @@ export class FirebaseService {
   deleteUser(path: string, userId: string) {
     return deleteDoc(doc(getFirestore(), path, userId));
   }
+  
 }
+
+
+
+
+  
+  
+
+  
+

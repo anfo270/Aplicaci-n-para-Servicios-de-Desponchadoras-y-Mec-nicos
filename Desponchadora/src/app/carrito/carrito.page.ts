@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from './carrito.service';
 import { AlertController } from '@ionic/angular';
+import { LocalStorageService } from '../services/localstorage.service';
 
 @Component({
   selector: 'app-carrito',
@@ -18,11 +19,14 @@ export class CarritoPage implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private LocalStorageService: LocalStorageService
+    
   ) {}
 
   ngOnInit() {
-    this.loadCart();
+    this.loadCart()
+    this.LocalStorageService.hasItem();
   }
 
   loadCart() {

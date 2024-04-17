@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from '../services/localstorage.service';
 
 @Component({
   selector: 'app-acercade',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AcercadePage implements OnInit {
 
-  constructor() { }
+  constructor(private LocalStorageService: LocalStorageService) { }
 
-  ngOnInit() {
+  ngOnInit() {this.LocalStorageService.hasItem();
   }
 
 }
