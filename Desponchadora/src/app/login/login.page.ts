@@ -48,9 +48,13 @@ export class LoginPage implements OnInit {
           const user = users[0];
           const decryptedPassword = dencrypt(user['contraseña']);
           if (decryptedPassword === f.Password) {
-            // Guarda la información del usuario en el almacenamiento local
             this.localStorageService.setItem('user', user);
             this.alertController.mostrarAlerta('Bienvenido', 'Ingresaste');
+            if (user['TipoUsuario'] === 'Cliente') {
+              this.router.navigate(['../home1'])
+            } else {
+              this.router.navigate(['../home'])
+            }
           } else {
             this.alertController.mostrarAlerta('Error', 'Credenciales inválidas. Por favor, inténtelo de nuevo.');
           }
