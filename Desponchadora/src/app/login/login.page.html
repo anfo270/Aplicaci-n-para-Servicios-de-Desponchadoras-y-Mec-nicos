@@ -1,36 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="tertiary">
-    <ion-title>INICIAR SESIÓN</ion-title>
+    <ion-title class="ion-text-center">INICIAR SESIÓN</ion-title>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/registro-login']">REGISTRARSE</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding ion-text-center">
 
-  <form [formGroup]="FormularioInicio">
-    <ion-item>
-      <ion-label position="floating">Correo Electronico</ion-label>
-      <ion-input type="email" name="email" formControlName="CorreoElectronico"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="{{ mostrarPassword1 ? 'text' : 'password' }}" formControlName="Password" name="password"
-        required></ion-input>
-      <ion-icon name="{{ mostrarPassword1 ? 'eye-off' : 'eye' }}" slot="end"
-        (click)="toggleMostrarPassword1()"></ion-icon>
-    </ion-item>
-    <ion-button (click)="login()" expand="block">Ingresar</ion-button>
-  </form>
+
+  <div class="ion-text-center ion-padding">
+    <form [formGroup]="FormularioInicio" class="ion-text-left">
+      <ion-item lines="none">
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input type="email" formControlName="CorreoElectronico" class="ion-text-center"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="{{ mostrarPassword1 ? 'text' : 'password' }}" formControlName="Password" required
+          class="ion-text-center"></ion-input>
+        <ion-icon name="{{ mostrarPassword1 ? 'eye-off' : 'eye' }}" slot="end"
+          (click)="toggleMostrarPassword1()"></ion-icon>
+      </ion-item>
+      <ion-button expand="block" (click)="login()">Ingresar</ion-button>
+    </form>
+  </div>
+  <div class="ion-text-center ion-margin">
+    <ion-card class="ion-text-center ion-padding">
+      <img src="/assets/icon/icon-256.png" class="logo-image" />
+    </ion-card>
+  </div>
+
+
 </ion-content>
-
-<!--
-<ion-footer>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="end">
-      <ion-button [routerLink]="['/registro-login']">Registrarse</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
--->
