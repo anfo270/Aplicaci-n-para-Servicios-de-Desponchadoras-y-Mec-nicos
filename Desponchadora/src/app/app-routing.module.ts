@@ -14,12 +14,12 @@ const routes: Routes = [
     loadChildren: () => import('./registro-login/registro-login.module').then(m => m.RegistroLoginPageModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./tabs1/tabs1.module').then( m => m.Tabs1PageModule)
+    path: 'tabs1',
+    loadChildren: () => import('./tabs1/tabs1.module').then(m => m.Tabs1PageModule)
   },
 ];
 
