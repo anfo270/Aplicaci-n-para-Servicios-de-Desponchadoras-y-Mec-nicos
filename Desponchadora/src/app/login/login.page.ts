@@ -51,9 +51,9 @@ export class LoginPage implements OnInit {
             this.localStorageService.setItem('user', user);
             this.alertController.mostrarAlerta('Bienvenido', 'Ingresaste');
             if (user['TipoUsuario'] === 'Cliente') {
-              this.router.navigate(['/tabs1/home1'])
-            } else {
               this.router.navigate(['/tabs/home'])
+            } else {
+              this.router.navigate(['/tabs1/home1'])
             }
           } else {
             this.alertController.mostrarAlerta('Error', 'Credenciales inválidas. Por favor, inténtelo de nuevo.');
