@@ -9,7 +9,7 @@ export class PerfilPage implements OnInit {
 
   constructor(
     private LocalStorageService: LocalStorageService,
-  ) { }
+  ) { this.LocalStorageService.hasItem() }
 
   ngOnInit() {
   }

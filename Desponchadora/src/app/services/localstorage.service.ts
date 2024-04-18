@@ -35,7 +35,7 @@ export class LocalStorageService {
 
   hasItem(): void {
     if (localStorage.getItem("user") == null) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['./login']);
     }
   }
 }
