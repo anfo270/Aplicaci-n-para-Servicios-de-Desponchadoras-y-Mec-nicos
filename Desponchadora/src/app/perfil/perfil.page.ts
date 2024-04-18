@@ -10,13 +10,13 @@ import { User } from '../model/user.model';
 export class PerfilPage implements OnInit {
   usuario: User;
   constructor(
-    private LocalStorageService: LocalStorageService,
-  ) { this.LocalStorageService.hasItem() }
+    private localStorageService: LocalStorageService,
+  ) { this.localStorageService.hasItem() }
   ngOnInit() {
-    this.usuario = this.LocalStorageService.getItem('user');
+    this.usuario = this.localStorageService.getItem('user');
   }
 
   cerrar() {
-    this.LocalStorageService.clear();
+    this.localStorageService.clear();
   }
 }
